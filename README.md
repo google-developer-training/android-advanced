@@ -1,1 +1,1 @@
-# android-advanced
+# android-advanced-starter-apps
