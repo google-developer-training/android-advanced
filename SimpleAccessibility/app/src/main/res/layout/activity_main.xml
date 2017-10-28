@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. -->
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.android.simpleaccessibility.MainActivity">
+
+    <!-- A plain text button.  The button label is read by TalkBack.
+    No content description needed -->
+    <Button
+        android:id="@+id/button_plain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/button_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- An ImageButton. TalkBack cannot identify this button and
+    reports it as "unlabelled button". Use android:contentDescription
+    to provide a speakable label for the image. -->
+    <ImageButton
+        android:id="@+id/button_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/button_plain"
+        app:layout_constraintTop_toTopOf="@+id/button_plain"
+        app:srcCompat="@drawable/ic_action_discard"
+        android:contentDescription="@string/imagebutton_contentdescription" />
+
+    <!-- Checkboxes. The checkbox text is read by TalkBack. No content
+    description is needed. -->
+    <CheckBox
+        android:id="@+id/checkbox_jetpack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/checkbox_text_jetpack"
+        app:layout_constraintLeft_toLeftOf="@+id/button_plain"
+        app:layout_constraintTop_toBottomOf="@+id/button_plain" />
+
+    <CheckBox
+        android:id="@+id/checkbox_hyperspace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkbox_text_hyperspace"
+        app:layout_constraintLeft_toLeftOf="@+id/checkbox_jetpack"
+        app:layout_constraintTop_toBottomOf="@+id/checkbox_jetpack" />
+
+    <!-- An ImageView.  By default, ImageViews are treated as decorative images
+    with no functionality or label and are ignored by TalkBack. Use
+    android:contentDescription to provide a speakable label for the image. Use
+    android:focusable to indicate this is a meaningful element.
+    in the app. -->
+    <ImageView
+        android:id="@+id/image_partly_cloudy"
+        android:layout_width="200dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintLeft_toLeftOf="@+id/checkbox_hyperspace"
+        app:layout_constraintTop_toBottomOf="@+id/checkbox_hyperspace"
+        app:srcCompat="@drawable/partly_cloudy"
+        android:contentDescription="@string/imageview_contentdescription"
+        android:focusable="true" />
+
+    <!-- This TextView is a label for the EditText below. Use android:labelFor
+    in API 17 or higher to explicitly define this as a label in TalkBack. -->
+    <TextView
+        android:id="@+id/textview_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/label_message"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="@+id/image_partly_cloudy"
+        app:layout_constraintTop_toBottomOf="@+id/image_partly_cloudy"
+        android:labelFor="@+id/edittext_message" />
+
+    <!-- For EditTexts, TalkBack reads the current text or the hint to
+    identify the view (hint is preferred).  If a label for the EditText
+    has been explicitly defined in a TextView with android:labelFor, TalkBack
+    uses that instead.  -->
+    <EditText
+        android:id="@+id/edittext_message"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:inputType="text"
+        app:layout_constraintLeft_toLeftOf="@+id/textview_label"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_label" />
+
+</android.support.constraint.ConstraintLayout>

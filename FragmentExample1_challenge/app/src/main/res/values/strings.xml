@@ -1,0 +1,47 @@
+<!--
+  ~ Copyright (C) 2017 Google Inc.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <string name="app_name">FragmentExample</string>
+
+    <!-- Placeholder text for this example. -->
+    <string name="title1">Cry for a Shadow</string>
+    <string name="article1">Many a Beatle fanatic started down the outtake
+        road, like I did, with a first listen to this song. Originally titled
+        “Beatle Bop” and recorded in a single session that yielded four songs (the other three featured Tony Sheridan with the Beatles as a backing band), “Cry for a Shadow” is an instrumental written by Lennon and Harrison, which makes it unique to this day. John Lennon plays rhythm guitar, George Harrison plays lead guitar, Paul McCartney plays bass, and Pete Best plays drums. The sessions were produced by Bert Kaempfert in Hamburg, Germany, during the Beatles’ second visit from April through July of 1961 to play in the Reeperbahn-section clubs.</string>
+    <string name="title2">My Bonnie - Ain’t She Sweet</string>
+    <string name="article2">At the same session, the Beatles played on “My Bonnie” (the first-ever single with Beatles playing), as the backing band for English singer Tony Sheridan, originally a member of the Jets. The popularity of this single in Liverpool brought the Beatles to the attention of Brian Epstein, who worked in the NEMS record store and tried to meet demand for the disc. John Lennon then sings a fine “Ain’t She Sweet” (his first-ever released vocal).</string>
+
+    <!-- Text for the fragment. -->
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="yes_message">ARTICLE: Like</string>
+    <string name="no_message">ARTICLE: Thanks</string>
+    <string name="question_article">LIKE THE ARTICLE?</string>
+
+    <!-- Text for the challenge. -->
+    <string name="yes_message2">SONG: Like</string>
+    <string name="no_message2">SONG: Thanks</string>
+    <string name="question_the_song">LIKE THE SONG?</string>
+    <string name="my_rating">My Rating:</string>
+
+    <!-- Text for the button in FragmentExample2. -->
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
+    <!-- Text for the exception message in FragmentCommunicate. -->
+    <string name="exception_message">must implement OnFragmentInteractionListener</string>
+</resources>

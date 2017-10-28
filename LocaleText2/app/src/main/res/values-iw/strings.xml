@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">טקסט מקומי</string>
+    <string name="action_help">עֶזרָה</string>
+    <string name="description">נוגעת היא משפחה של קונפליקטים שנעשו עם סוכר או דבש, אגוזים קלויים (שקדים, אגוזי מלך, פיסטוקים, אגוזי לוז ואגוזי מקדמיה), מקציפים את חלבוני הביצה, ולפעמים פירות מסוכרים קצוצים. הוא משמש במגוון של ממתקים ו שוקולדים.</string>
+    <string name="help_text">אם אתה זקוק לעזרה, פנה למחלקת התמיכה שלנו.</string>
+    <string name="nougat">חבילת נוגט</string>
+    <string name="language">שפה</string>
+</resources>
