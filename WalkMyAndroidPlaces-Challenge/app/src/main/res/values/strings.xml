@@ -1,0 +1,36 @@
+<!--
+  Copyright 2017 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<resources>
+    <string name="app_name">Walk My Android Places</string>
+    <string name="get_location">Get Location</string>
+    <string name="android_image">Android Image</string>
+    <string name="textview_hint">Press the button to start tracking your
+        location.
+    </string>
+    <string name="location_permission_denied">Location permissions denied,
+        please enable the permissions to use this app.
+    </string>
+    <string name="address_text">"Name: %1$s \n Address: %2$s \n Timestamp: %3$tr"</string>
+    <string name="no_location">No location available</string>
+    <string name="no_address_found">No address found</string>
+    <string name="loading">Loading…</string>
+    <string name="service_not_available">Service not available</string>
+    <string name="invalid_lat_long_used">Invalid coordinates used</string>
+    <string name="start_tracking_location">Start tracking location</string>
+    <string name="stop_tracking_location">Stop tracking location</string>
+    <string name="no_place">No Place Name Found</string>
+    <string name="pick_a_place">Pick a Place</string>
+</resources>

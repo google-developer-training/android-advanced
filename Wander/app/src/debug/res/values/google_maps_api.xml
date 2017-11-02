@@ -1,0 +1,41 @@
+<!--
+  Copyright 2017 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at
+    the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=50:3F:FD:38:8D:D1:E7:37:9C:DD:60:1B:0B:CA:62:C8:2E:27:73:3E%3Bcom.example.android.wander
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    50:3F:FD:38:8D:D1:E7:37:9C:DD:60:1B:0B:CA:62:C8:2E:27:73:3E
+
+    SHA-1 certificate fingerprint:
+    50:3F:FD:38:8D:D1:E7:37:9C:DD:60:1B:0B:CA:62:C8:2E:27:73:3E
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the
+    "google_maps_key" string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve"
+        translatable="false">YOUR_KEY_HERE</string>
+</resources>
