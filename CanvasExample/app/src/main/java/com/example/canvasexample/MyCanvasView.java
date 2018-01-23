@@ -85,7 +85,7 @@ public class MyCanvasView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        // Draw the bitmap where we are saving the path.
+        // Draw the bitmap that has the saved path.
         canvas.drawBitmap(mExtraBitmap, 0, 0, null);
     }
 
