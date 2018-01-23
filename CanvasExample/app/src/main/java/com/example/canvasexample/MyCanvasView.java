@@ -32,11 +32,12 @@ import android.view.View;
 
 public class MyCanvasView extends View {
 
-    private Canvas mCanvas;
-    private Bitmap mBitmap;
     private Paint mPaint;
     private Path mPath;
     private int mDrawColor;
+    private int mBackgroundColor;
+    private Canvas mExtraCanvas;
+    private Bitmap mExtraBitmap;
 
     MyCanvasView(Context context) {
         this(context, null);
@@ -45,18 +46,16 @@ public class MyCanvasView extends View {
     public MyCanvasView(Context context, AttributeSet attributeSet) {
         super(context);
 
-        int backgroundColor;
-
-        mDrawColor = ResourcesCompat.getColor(getResources(),
+        mBackgroundColor = ResourcesCompat.getColor(getResources(),
                         R.color.opaque_orange, null);
-        backgroundColor = ResourcesCompat.getColor(getResources(),
+        mDrawColor = ResourcesCompat.getColor(getResources(),
                 R.color.opaque_yellow, null);
 
         // Holds the path we are currently drawing.
         mPath = new Path();
         // Set up the paint with which to draw.
         mPaint = new Paint();
-        mPaint.setColor(backgroundColor);
+        mPaint.setColor(mDrawColor);
         // Smoothes out edges of what is drawn without affecting shape.
         mPaint.setAntiAlias(true);
         // Dithering affects how colors with higher-precision
@@ -78,18 +77,16 @@ public class MyCanvasView extends View {
                                  int oldWidth, int oldHeight) {
         super.onSizeChanged(width, height, oldWidth, oldHeight);
         // Create bitmap, create canvas with bitmap, fill canvas with color.
-        mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        mCanvas = new Canvas(mBitmap);
-        mCanvas.drawColor(mDrawColor);
+        mExtraBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        mExtraCanvas = new Canvas(mExtraBitmap);
+        mExtraCanvas.drawColor(mBackgroundColor);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        // First, draw the bitmap as created.
-        canvas.drawBitmap(mBitmap, 0, 0, mPaint);
-        // Then draw the path on top, styled by mPaint.
-        canvas.drawPath(mPath, mPaint);
+        // Draw the bitmap where we are saving the path.
+        canvas.drawBitmap(mBitmap, 0, 0, null);
     }
 
     // Variables for the latest x,y values,
@@ -119,13 +116,13 @@ public class MyCanvasView extends View {
             mPath.quadTo(mX, mY, (x + mX)/2, (y + mY)/2);
             mX = x;
             mY = y;
+            // Draw the path in the extra bitmap to save it.
+            mExtraCanvas.drawPath(mPath, mPaint);
         }
     }
 
     private void touchUp() {
-        mPath.lineTo(mX, mY);
-        mCanvas.drawPath(mPath, mPaint);
-        // Reset so it doesn't get drawn again.
+        // Reset the path so it doesn't get drawn again.
         mPath.reset();
     }
 
@@ -148,7 +145,6 @@ public class MyCanvasView extends View {
                 break;
             case MotionEvent.ACTION_UP:
                 touchUp();
-                invalidate();
                 break;
             default:
                 // do nothing
