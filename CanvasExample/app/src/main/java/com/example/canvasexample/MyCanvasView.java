@@ -86,7 +86,7 @@ public class MyCanvasView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         // Draw the bitmap where we are saving the path.
-        canvas.drawBitmap(mBitmap, 0, 0, null);
+        canvas.drawBitmap(mExtraBitmap, 0, 0, null);
     }
 
     // Variables for the latest x,y values,
