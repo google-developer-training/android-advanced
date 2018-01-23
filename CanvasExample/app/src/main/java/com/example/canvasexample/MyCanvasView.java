@@ -59,8 +59,8 @@ public class MyCanvasView extends View {
         mPaint.setColor(backgroundColor);
         // Smoothes out edges of what is drawn without affecting shape.
         mPaint.setAntiAlias(true);
-        // Dithering affects how colors with higher-precision than the device
-        // are down-sampled.
+        // Dithering affects how colors with higher-precision
+        // than the device are down-sampled.
         mPaint.setDither(true);
         mPaint.setStyle(Paint.Style.STROKE); // default: FILL
         mPaint.setStrokeJoin(Paint.Join.ROUND); // default: MITER
