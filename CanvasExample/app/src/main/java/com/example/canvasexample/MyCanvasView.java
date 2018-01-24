@@ -82,11 +82,6 @@ public class MyCanvasView extends View {
         mExtraCanvas.drawColor(mBackgroundColor);
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        // Draw the bitmap that has the saved path.
-        canvas.drawBitmap(mExtraBitmap, 0, 0, null);
 
 @Override
     protected void onDraw(Canvas canvas) {
@@ -100,7 +95,6 @@ public class MyCanvasView extends View {
         Rect myFrame = new Rect (inset, inset,
                 getScreenWidth() - inset, getScreenHeight() - inset);
         canvas.drawRect(myFrame, mPaint);
-    }
     }
 
     // Variables for the latest x,y values,
@@ -170,10 +164,5 @@ public class MyCanvasView extends View {
     // Get the width of the screen
     public static int getScreenWidth() {
         return Resources.getSystem().getDisplayMetrics().widthPixels;
-    }
-
-    // Get the height of the screen
-    public static int getScreenHeight() {
-        return Resources.getSystem().getDisplayMetrics().heightPixels;
     }
 }
