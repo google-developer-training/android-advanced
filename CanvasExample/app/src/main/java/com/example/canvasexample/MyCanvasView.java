@@ -98,7 +98,6 @@ public class MyCanvasView extends View {
         canvas.drawBitmap(mExtraBitmap, 0, 0, null);
 
         // Draw a frame around the picture.
-        int inset = 40;
         canvas.drawRect(mFrame, mPaint);
     }
 
