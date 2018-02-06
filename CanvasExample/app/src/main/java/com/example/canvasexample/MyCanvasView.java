@@ -40,6 +40,7 @@ public class MyCanvasView extends View {
     private int mBackgroundColor;
     private Canvas mExtraCanvas;
     private Bitmap mExtraBitmap;
+    private Rect mFrame;
 
     MyCanvasView(Context context) {
         this(context, null);
@@ -82,6 +83,10 @@ public class MyCanvasView extends View {
         mExtraBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         mExtraCanvas = new Canvas(mExtraBitmap);
         mExtraCanvas.drawColor(mBackgroundColor);
+
+        // Calculate the rect a frame around the picture.
+        int inset = 40;
+        mFrame = new Rect (inset, inset, width - inset, height - inset);
     }
 
 
@@ -94,9 +99,7 @@ public class MyCanvasView extends View {
 
         // Draw a frame around the picture.
         int inset = 40;
-        Rect myFrame = new Rect (inset, inset,
-                getScreenWidth() - inset, getScreenHeight() - inset);
-        canvas.drawRect(myFrame, mPaint);
+        canvas.drawRect(mFrame, mPaint);
     }
 
     // Variables for the latest x,y values,
