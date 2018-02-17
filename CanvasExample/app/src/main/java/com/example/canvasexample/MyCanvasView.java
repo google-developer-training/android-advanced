@@ -89,7 +89,6 @@ public class MyCanvasView extends View {
         mFrame = new Rect (inset, inset, width - inset, height - inset);
     }
 
-
 @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -163,13 +162,10 @@ public class MyCanvasView extends View {
         }
         return true;
     }
-
-
     // Get the width of the screen
     public static int getScreenWidth() {
         return Resources.getSystem().getDisplayMetrics().widthPixels;
     }
-
     // Get the height of the screen
     public static int getScreenHeight() {
         return Resources.getSystem().getDisplayMetrics().heightPixels;
