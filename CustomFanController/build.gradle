@@ -1,4 +1,12 @@
+repositories {
+    google()
+}
 
+buildscript {
+    repositories {
+        google()
+    }
+}
 
 
 

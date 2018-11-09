@@ -24,6 +24,7 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Region;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -164,9 +165,21 @@ public class ClippedView extends View {
         // Use the subtraction of two clipping rectangles to create a frame.
         canvas.clipRect(2*mRectInset, 2*mRectInset,
                 mClipRectRight-2*mRectInset, mClipRectBottom-2*mRectInset);
-        canvas.clipRect(4*mRectInset, 4*mRectInset,
-                mClipRectRight-4*mRectInset, mClipRectBottom-4*mRectInset,
-                Region.Op.DIFFERENCE);
+		// The method clipRect(float, float, float, float, Region.Op
+        // .DIFFERENCE) was deprecated in API level 26. The recommended
+        // alternative method is clipOutRect(float, float, float, float),
+        // which is currently available in API level 26 and higher.
+        if(android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
+            canvas.clipRect(4*mRectInset, 4*mRectInset,
+                    mClipRectRight-4*mRectInset, mClipRectBottom-4*mRectInset,
+                            Region.Op.DIFFERENCE);
+        else{
+            canvas.clipOutRect(4*mRectInset, 4*mRectInset,
+                            mClipRectRight-4*mRectInset,
+                               mClipRectBottom-4*mRectInset);
+        }
+
+
         drawClippedRectangle(canvas);
         canvas.restore();
 
@@ -178,19 +191,38 @@ public class ClippedView extends View {
         mPath.rewind();
         mPath.addCircle(mCircleRadius, mClipRectBottom-mCircleRadius,
                 mCircleRadius, Path.Direction.CCW);
-        canvas.clipPath(mPath, Region.Op.DIFFERENCE);
+        // The method clipPath(path, Region.Op.DIFFERENCE) was deprecated in
+        // API level 26. The recommended alternative method is
+        // clipOutPath(Path), which is currently available in API level 26
+        // and higher.
+        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            canvas.clipPath(mPath, Region.Op.DIFFERENCE);
+        } else {
+            canvas.clipOutPath(mPath);
+        }
         drawClippedRectangle(canvas);
         canvas.restore();
 
-        // Use the interserction of two rectangles as the clipping region.
+        // Use the intersection of two rectangles as the clipping region.
         canvas.save();
         canvas.translate(mColumnnTwo, mRowTwo);
         canvas.clipRect(mClipRectLeft, mClipRectTop,
                 mClipRectRight-mSmallRectOffset,
                 mClipRectBottom-mSmallRectOffset);
-        canvas.clipRect(mClipRectLeft+mSmallRectOffset,
-                mClipRectTop+mSmallRectOffset,
-                mClipRectRight, mClipRectBottom, Region.Op.INTERSECT);
+        // The method clipRect(float, float, float, float, Region.Op
+        // .INTERSECT) was deprecated in API level 26. The recommended
+        // alternative method is clipRect(float, float, float, float), which
+        // is currently available in API level 26 and higher.
+        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            canvas.clipRect(mClipRectLeft + mSmallRectOffset,
+                            mClipRectTop + mSmallRectOffset, mClipRectRight,
+                            mClipRectBottom, Region.Op.INTERSECT);
+        } else {
+            canvas.clipRect(mClipRectLeft + mSmallRectOffset,
+                            mClipRectTop + mSmallRectOffset, mClipRectRight,
+                            mClipRectBottom);
+        }
+
         drawClippedRectangle(canvas);
         canvas.restore();
 

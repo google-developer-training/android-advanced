@@ -23,7 +23,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.2'
+        classpath 'com.android.tools.build:gradle:3.1.4'
 
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -43,6 +43,6 @@ task clean(type: Delete) {
 }
 
 ext {
-    roomVersion = '1.1.0'
+    roomVersion = '1.1.1'
     archLifecycleVersion = '1.1.1'
 }

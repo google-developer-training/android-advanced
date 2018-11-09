@@ -25,6 +25,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.Region;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -137,7 +138,17 @@ public class GameView extends SurfaceView implements Runnable {
 
                 // Add clipping region and fill rest of the canvas with black.
                 mPath.addCircle(x, y, radius, Path.Direction.CCW);
-                canvas.clipPath(mPath, Region.Op.DIFFERENCE);
+
+                // The method clipPath(path, Region.Op.DIFFERENCE) was
+                // deprecated in API level 26. The recommended alternative
+                // method is clipOutPath(Path), which is currently available
+                // in API level 26 and higher.
+                if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+                    canvas.clipPath(mPath, Region.Op.DIFFERENCE);
+                } else {
+                    canvas.clipOutPath(mPath);
+                }
+
                 canvas.drawColor(Color.BLACK);
 
                 // If the x, y coordinates of the user touch are within a

@@ -24,16 +24,13 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
-import com.android.example.roomwordssample.Word;
-import com.android.example.roomwordssample.WordDao;
-
 /**
  * WordRoomDatabase. Includes code to create the database.
  * After the app creates the database, all further interactions
  * with it happen through the WordViewModel.
  */
 
-@Database(entities = {Word.class}, version = 1)
+@Database(entities = {Word.class}, version = 1, exportSchema = false)
 public abstract class WordRoomDatabase extends RoomDatabase {
 
     public abstract WordDao wordDao();
