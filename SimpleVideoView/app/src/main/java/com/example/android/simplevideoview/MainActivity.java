@@ -15,11 +15,21 @@
  */
 package com.example.android.simplevideoview;
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
 import android.webkit.URLUtil;
 import android.widget.MediaController;
 import android.widget.TextView;
@@ -33,8 +43,15 @@ public class MainActivity extends AppCompatActivity {
     // private static final String VIDEO_SAMPLE = "tacoma_narrows";
 
     // Use this string for part 2 (load media from the internet).
+    //private static final String VIDEO_SAMPLE =
+    //        "https://developers.google.com/training/images/tacoma_narrows.mp4";
+
+    // Use this string for part 3 (load media from sdcard).
     private static final String VIDEO_SAMPLE =
-            "https://developers.google.com/training/images/tacoma_narrows.mp4";
+            "file://" + Environment.getExternalStorageDirectory().getPath()+"/Movies/01.mp4";
+
+    private static final String VIDEO_SAMPLE2 =
+            "file://" + Environment.getExternalStorageDirectory().getPath()+"/Movies/02.mp4";
 
     private VideoView mVideoView;
     private TextView mBufferingTextView;
@@ -58,9 +75,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Set up the media controller widget and attach it to the video view.
-        MediaController controller = new MediaController(this);
-        controller.setMediaPlayer(mVideoView);
-        mVideoView.setMediaController(controller);
+//        MediaController controller = new MediaController(this);
+//        controller.setMediaPlayer(mVideoView);
+//        mVideoView.setMediaController(controller);
     }
 
 
@@ -69,7 +86,24 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         // Load the media each time onStart() is called.
-        initializePlayer();
+        initializePlayer(false);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        hideSystemUi();
+    }
+
+    private void hideSystemUi(){
+        mVideoView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LOW_PROFILE
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        );
     }
 
     @Override
@@ -99,20 +133,63 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        mVideoView.suspend();
+    }
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
         // Save the current playback position (in milliseconds) to the
         // instance state bundle.
         outState.putInt(PLAYBACK_TIME, mVideoView.getCurrentPosition());
+        mCurrentPosition = mVideoView.getCurrentPosition();
     }
 
-    private void initializePlayer() {
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mCurrentPosition = savedInstanceState.getInt(PLAYBACK_TIME);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case 0:
+                if(grantResults.length > 0 && grantResults[0] ==PackageManager.PERMISSION_GRANTED){
+                    initializePlayer(false);
+                }else{
+                    Toast.makeText(this, "denied", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+        }
+    }
+
+    private boolean mu = false;
+    private void initializePlayer(boolean swith) {
         // Show the "Buffering..." message while the video loads.
         mBufferingTextView.setVisibility(VideoView.VISIBLE);
 
         // Buffer and decode the video sample.
-        Uri videoUri = getMedia(VIDEO_SAMPLE);
+
+        Uri videoUri = null;
+        if(mu) {
+            videoUri = getMedia(VIDEO_SAMPLE);
+        }else {
+            videoUri = getMedia(VIDEO_SAMPLE2);
+        }
+        mu = !mu;
+        Log.d("zhanghao", "initializePlayer: " + videoUri);
+
+        if (Util.maybeRequestReadExternalStoragePermission(this, videoUri)) {
+            // The player will be reinitialized if the permission is granted.
+            Log.d("zhanghao", "initializePlayer: " );
+            return;
+        }
+
         mVideoView.setVideoURI(videoUri);
 
         // Listener for onPrepared() event (runs after the media is prepared).
@@ -151,6 +228,14 @@ public class MainActivity extends AppCompatActivity {
                 mVideoView.seekTo(0);
             }
         });
+
+        mVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+
+                return true;
+            }
+        });
     }
 
 
@@ -171,5 +256,29 @@ public class MainActivity extends AppCompatActivity {
             return Uri.parse("android.resource://" + getPackageName() +
                     "/raw/" + mediaName);
         }
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode){
+            case KeyEvent.KEYCODE_VOLUME_UP:
+                return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+
+        switch (keyCode){
+            case KeyEvent.KEYCODE_VOLUME_UP:
+                if (mVideoView.isPlaying()){
+                    mVideoView.stopPlayback();
+                }
+                initializePlayer(true);
+                return true;
+        }
+        return super.onKeyUp(keyCode, event);
     }
 }
