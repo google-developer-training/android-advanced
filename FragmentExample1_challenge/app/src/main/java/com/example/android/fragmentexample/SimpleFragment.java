@@ -88,11 +88,17 @@ public class SimpleFragment extends Fragment {
                     @Override
                     public void onRatingChanged(RatingBar ratingBar,
                                                 float rating, boolean fromUser) {
-                        // Get rating and show Toast with rating.
-                        String myRating = (getString(R.string.my_rating) +
-                                String.valueOf(ratingBar.getRating()));
-                        Toast.makeText(getContext(), myRating,
-                                Toast.LENGTH_SHORT).show();
+                        // Get rating and show Toast with rating(Old).
+//                         String myRating = (getString(R.string.my_rating) +
+//                                 String.valueOf(ratingBar.getRating()));
+//                         Toast.makeText(getContext(), myRating,
+//                                 Toast.LENGTH_SHORT).show();
+                        
+                         // Get rating and show Toast with rating(New).
+                        // instead of above code you can write only the following as the 'rating' parameter is there to complete your needs
+                         Toast.makeText(getContext(), rating,
+//                                 Toast.LENGTH_SHORT).show();
+                        
                     }
                 });
 
