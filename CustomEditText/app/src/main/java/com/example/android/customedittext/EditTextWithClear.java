@@ -129,7 +129,10 @@ public class EditTextWithClear
             @Override
             public void onTextChanged(CharSequence s,
                                       int start, int before, int count) {
-                showClearButton();
+                if (count > 0)
+                    showClearButton();
+                else
+                    hideClearButton();
             }
 
             @Override
